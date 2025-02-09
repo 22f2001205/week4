@@ -9,17 +9,23 @@ permissions:
   contents: write  # Ensure GitHub Actions can push changes
 
 jobs:
-  daily-commit:
+  commit:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Add Daily Commit by 22f2001205@ds.study.iitm.ac.in
+      - name: Configure Git (22f2001205@ds.study.iitm.ac.in)
         run: |
-          date >> daily_update.log
-          git config --global user.name "mokshika1711"
+          git config --global user.name "GitHub Action"
           git config --global user.email "22f2001205@ds.study.iitm.ac.in"
-          git add .
-          git commit -m "Daily update on $(date)"
+
+      - name: Make a Change
+        run: |
+          echo "Last run: $(date)" > last_run.txt  # Always modify the file
+
+      - name: Commit and Push Changes
+        run: |
+          git add last_run.txt
+          git commit -m "Automated daily commit at $(date)" || echo "No changes to commit"
           git push
