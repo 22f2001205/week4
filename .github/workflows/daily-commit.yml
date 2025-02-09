@@ -3,6 +3,10 @@ name: Daily Commit Workflow
 on:
   schedule:
     - cron: '30 5 * * *'  # Runs daily at 05:30 AM UTC (adjust this if needed)
+  workflow_dispatch:
+
+permissions:
+  contents: write  # Ensure GitHub Actions can push changes
 
 jobs:
   daily-commit:
